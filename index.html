@@ -2,3 +2,42 @@
 layout: index
 lang: en
 ---
+java/src/sdk/dataobjects/paypal/payflow/CreditCard.java
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&disable-card=amex,jcb"></script>
+paypal.HostedFields.render({ /* ... */ }).then(function (hostedFieldsInstance) {
+
+ var cvvLabel = document.querySelector('label[for="cvv"]'); // The label for your CVV field
+
+ hostedFieldsInstance.on('cardTypeChange', function (event) {
+
+   // This event triggers when a change in card type is detected.
+
+   // It triggers only from the number field.
+
+   var cvvText;
+
+   if (event.cards.length === 1) {
+
+     cvvText = event.cards[0].code.name;
+
+   } else {
+
+     cvvText = 'CVV';
+
+   }
+
+   cvvLabel.innerHTML = cvvText;
+
+   hostedFieldsInstance.setAttribute({
+
+     field: 'cvv',
+
+     attribute: 'placeholder',
+
+     value: cvvText
+
+   });
+
+ });
+
+});
